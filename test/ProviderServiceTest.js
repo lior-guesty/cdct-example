@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { expect } from 'chai'
 import server from '../src/petService/Service.js'
-import { loadContractsFrom, runContract } from './ContractUtil.js';
+import { loadContractsFrom, runContracts } from './ContractUtil.js';
 
 describe('Pet Store Service - Provider Test', () => {
     
@@ -47,14 +47,9 @@ describe('Pet Store Service - Provider Test', () => {
         let contracts = (await loadContractsFrom('./test'))
                         .map(m => m.contract(baseUrl))
         
-        let results = await Promise.all(contracts.map(async c => { 
-                                                        //console.log(`Making a request to ${c.path}`)
-                                                        let response = await axios.get(c.path)
-                                                        c.verification(response)
-                                                        return  { consumer : c.consumerName, success : true}
-                                                    }))
-        
+        let results = await runContracts(contracts)
         console.log(`Results: ${JSON.stringify(results)}`)
+        expect(results.every(_ => _.success)).to.be.true
 
         
     })
