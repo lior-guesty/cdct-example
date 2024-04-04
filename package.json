@@ -1,0 +1,22 @@
+{
+  "name": "cdctsample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "axios": "^1.6.8",
+    "chai": "^5.1.0",
+    "mocha": "^10.4.0",
+    "nock": "^13.5.4"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
