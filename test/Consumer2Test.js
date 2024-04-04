@@ -1,9 +1,9 @@
 import axios from 'axios';
 import nock from 'nock';
 import { Consumer2Contract } from './Consumer2Contract.js';
+import { runContract } from './ContractUtil.js';
 
 const BASE_URL = "http://localhost:3000"
-const requestPath = (p) => `${BASE_URL}/api/v3/${p}`
 
 const mockData = {
     10 : {
@@ -41,8 +41,6 @@ describe('PetStore Service - Consumer 2', () => {
 
     it('Contract expects a name, status and photo urls', async () => 
     {
-        const response = await axios.get(requestPath(Consumer2Contract.path))
-        Consumer2Contract.verification(response);
-
+        runContract(Consumer2Contract(BASE_URL))
     });
 });

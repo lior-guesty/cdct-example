@@ -1,9 +1,9 @@
 import axios from 'axios';
 import nock from 'nock';
 import { Consumer1Contract } from './Consumer1Contract.js';
+import { runContract } from './ContractUtil.js';
 
 const BASE_URL = "http://localhost:3000"
-const requestPath = (p) => `${BASE_URL}/api/v3/${p}`
 
 const mockData = {
     10 : {
@@ -31,7 +31,7 @@ describe('PetStore Service - Consumer 1', () => {
         // Mocking the HTTP server response
         nock(BASE_URL)
             .get(/\/pet\/(\d+)/)
-            .reply(function (uri, requestBody) {
+            .reply(function (uri, _) {
                 const petID = uri.match(/\/pet\/(\d+)/)[1]; // Extracting pet ID from URL
                 return [200, mockData[petID]];
             });
@@ -41,8 +41,6 @@ describe('PetStore Service - Consumer 1', () => {
 
     it('Contract expects a dog, category and a status field', async () => 
     {
-        const response = await axios.get(requestPath(Consumer1Contract.path))
-        Consumer1Contract.verification(response);
-
+      runContract(Consumer1Contract(BASE_URL))
     });
 });
