@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { expect } from 'chai';
 import nock from 'nock';
+import { Consumer1Contract } from './Consumer1Contract.js';
 
 const BASE_URL = "http://localhost:3000"
 const requestPath = (p) => `${BASE_URL}/api/v3/${p}`
@@ -26,7 +26,7 @@ const mockData = {
       }
 }
 
-describe('PetStore Service', () => {
+describe('PetStore Service - Consumer 1', () => {
     before(() => {
         // Mocking the HTTP server response
         nock(BASE_URL)
@@ -39,17 +39,10 @@ describe('PetStore Service', () => {
         
     });
 
-    it('should respond with a dog, category and a status field', async () => 
+    it('Contract expects a dog, category and a status field', async () => 
     {
-        const petID = 10
-        const response = await axios.get(requestPath(`pet/${petID}`));
-
-        ///This consumer cares only about the name, the category of the pet, and the status field.
-        expect(response.data.id).to.equal(petID)
-        expect(response.data.name).to.be.not.empty
-        expect(response.data.status).to.be.not.empty
-        expect(response.data.category.id).to.be.above(-1)
-        expect(response.data.category.name).to.be.not.empty
+        const response = await axios.get(requestPath(Consumer1Contract.path))
+        Consumer1Contract.verification(response);
 
     });
 });

@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { expect } from 'chai';
 import nock from 'nock';
+import { Consumer2Contract } from './Consumer2Contract.js';
 
 const BASE_URL = "http://localhost:3000"
 const requestPath = (p) => `${BASE_URL}/api/v3/${p}`
@@ -26,7 +26,7 @@ const mockData = {
       }
 }
 
-describe('PetStore Service', () => {
+describe('PetStore Service - Consumer 2', () => {
     before(() => {
         // Mocking the HTTP server response
         nock(BASE_URL)
@@ -39,16 +39,10 @@ describe('PetStore Service', () => {
         
     });
 
-    it('should respond with a name, status and photo urls', async () => 
+    it('Contract expects a name, status and photo urls', async () => 
     {
-        const petID = 10
-        const response = await axios.get(requestPath(`pet/${petID}`));
-
-        ///This consumer cares only about the name, status and photoUrls.
-        expect(response.data.id).to.equal(petID)
-        expect(response.data.name).to.be.not.empty
-        expect(response.data.status).to.be.not.empty
-        expect(response.data.photoUrls).to.be.not.empty
+        const response = await axios.get(requestPath(Consumer2Contract.path))
+        Consumer2Contract.verification(response);
 
     });
 });

@@ -2,7 +2,7 @@ import axios from 'axios'
 import { expect } from 'chai'
 import server from '../src/petService/Service.js'
 
-describe('HTTP Service Test', () => {
+describe('Pet Store Service - Provider Test', () => {
     
     var baseUrl;
     before(() => {
@@ -40,4 +40,5 @@ describe('HTTP Service Test', () => {
         const response = await axios.get(`${baseUrl}/pet/20`);
         expect(response.data).to.deep.equal(expectedResponse)
     });
+
 });
