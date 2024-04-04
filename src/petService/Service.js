@@ -7,7 +7,7 @@ const app = express();
 const DB = {
     10 : {
         "id": 10,
-        "name": "doggie",
+        // "name": "doggie",
         "category": {
           "id": 1,
           "name": "Dogs"
