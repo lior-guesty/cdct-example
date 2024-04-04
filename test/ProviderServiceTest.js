@@ -7,7 +7,7 @@ describe('HTTP Service Test', () => {
     var baseUrl;
     before(() => {
         // Start the server before running tests
-        const { address, port } = server.address();
+        const { port } = server.address();
         baseUrl = `http://localhost:${port}`;
         
     });
@@ -16,9 +16,7 @@ describe('HTTP Service Test', () => {
         server.close();
     });
 
-    it('should respond with "Hello World!"', async () => {
-
-       
+    it('simple pet get', async () => {
 
         const expectedResponse = {
             "id": 20,
@@ -39,7 +37,6 @@ describe('HTTP Service Test', () => {
             "status": "available"
           }
 
-          console.log(`Service base url: ${baseUrl}`)
         const response = await axios.get(`${baseUrl}/pet/20`);
         expect(response.data).to.deep.equal(expectedResponse)
     });
