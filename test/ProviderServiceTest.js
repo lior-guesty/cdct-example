@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { expect } from 'chai'
 import server from '../src/petService/Service.js'
+import { loadContractsFrom, runContract } from './ContractUtil.js';
 
 describe('Pet Store Service - Provider Test', () => {
     
@@ -11,7 +12,7 @@ describe('Pet Store Service - Provider Test', () => {
         baseUrl = `http://localhost:${port}`;
         
     });
-    
+
     after(() => {
         server.close();
     });
@@ -37,8 +38,26 @@ describe('Pet Store Service - Provider Test', () => {
             "status": "available"
           }
 
-        const response = await axios.get(`${baseUrl}/pet/20`);
+        const response = await axios.get(`${baseUrl}/api/v3/pet/20`);
         expect(response.data).to.deep.equal(expectedResponse)
     });
+
+    it ("should verify all consumer contracts", async () => {
+
+        let contracts = (await loadContractsFrom('./test'))
+                        .map(m => m.contract(baseUrl))
+        
+        let results = await Promise.all(contracts.map(async c => { 
+                                                        //console.log(`Making a request to ${c.path}`)
+                                                        let response = await axios.get(c.path)
+                                                        c.verification(response)
+                                                        return  { consumer : c.consumerName, success : true}
+                                                    }))
+        
+        console.log(`Results: ${JSON.stringify(results)}`)
+
+        
+    })
+
 
 });

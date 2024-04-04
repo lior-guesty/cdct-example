@@ -46,10 +46,10 @@ const DB = {
 //This is essentially all the querying mechanism for the sample. Imagine an actual DB query implemented here.
 const findPetByID = (id) => DB[id]
 
-app.get('/pet/:id', (req, res) => {
+app.get('/api/v3/pet/:id', (req, res) => {
     const petID = req.params.id
-
-    res.send(findPetByID(petID));
+    let pet = findPetByID(petID)
+    res.send(pet);
 });
 
 const server = app.listen(3001, () => {
