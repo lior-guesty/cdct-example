@@ -21,7 +21,7 @@ describe('Pet Store Service - Provider Test', () => {
 
         const expectedResponse = {
             "id": 20,
-            "name": "mitzy",
+            //"name": "mitzy",
             "category": {
               "id": 2,
               "name": "Cats"

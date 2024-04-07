@@ -25,7 +25,7 @@ const DB = {
       }
     , 20 : {
         "id": 20,
-        "name": "mitzy",
+        //"name": "mitzy",
         "category": {
           "id": 2,
           "name": "Cats"
