@@ -28,7 +28,7 @@ const DB = {
         "name": "mitzy",
         "category": {
           "id": 2,
-          "name": "Cats"
+          //"name": "Cats"
         },
         "photoUrls": [
           `/assets/20.jpg`
