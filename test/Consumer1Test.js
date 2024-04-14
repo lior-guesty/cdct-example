@@ -1,4 +1,3 @@
-import axios from 'axios';
 import nock from 'nock';
 import { Consumer1Contract } from './Consumer1Contract.js';
 import { runContract } from './ContractUtil.js';

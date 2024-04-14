@@ -41,7 +41,7 @@ export function loadContractsFrom(fsPath)
 
 }
 
-export async function runContracts(contracts)
+export async function runContractsAsProvider(contracts)
 {
     let results = await Promise.all(contracts.map(async c => { 
         let response = await axios.get(c.path)
