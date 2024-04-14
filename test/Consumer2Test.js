@@ -1,4 +1,3 @@
-import axios from 'axios';
 import nock from 'nock';
 import { Consumer2Contract } from './Consumer2Contract.js';
 import { runContract } from './ContractUtil.js';
@@ -31,7 +30,7 @@ describe('PetStore Service - Consumer 2', () => {
         // Mocking the HTTP server response
         nock(BASE_URL)
             .get(/\/pet\/(\d+)/)
-            .reply(function (uri, requestBody) {
+            .reply(function (uri, _) {
                 const petID = uri.match(/\/pet\/(\d+)/)[1]; // Extracting pet ID from URL
                 return [200, mockData[petID]];
             });
