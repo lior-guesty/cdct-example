@@ -1,20 +1,20 @@
 
 # Sample Consumer-Driven Contract Testing
 
-This repo show a simple demonstration of consumer driven contract testing.  
+This repo shows a simple demonstration of consumer driven contract testing.  
 This is a simple proof of concept, and not by any means a fully productized framework.  
 
-The focus here is on a demonstration of the concept rather than a fully fledge design or implementation.
+The focus here is on a demonstration of the concept rather than a fully fledged design or implementation.
 
 Below we explain the code structure, how to run and undersand the examples, and the processes that come up from it.  
-In some case we suggest design alternatives and places where more evolution is needed.
+In some cases we suggest design alternatives and places where more evolution is needed.
 
 # Overview
 
 The example shown is imagining 2 consumers of the same service.  
 The service is the [petstore service](https://github.com/OAI/OpenAPI-Specification/blob/main/examples/v3.0/petstore.json) used as the classic open API example (also in the [swagger ui](https://petstore3.swagger.io/#/pet/getPetById)).
 
-We imagine 2 separate consumers, consumer 1 and consumer 2, each calling methods of that service. The example showns a simple method call - `/pet/:id`, which retrieves the information of a single pet in the store.
+We imagine 2 separate consumers, consumer 1 and consumer 2, each calling methods of that service. The example shows a simple method call - `/pet/:id`, which retrieves the information of a single pet in the store.
 
 The two consumers require different things from the contract, with some overlap.  
 - Consumer 1 expects the id to be the one he requested, and also requires the `name`, `category` and `status` information to be in the response.
@@ -40,7 +40,7 @@ To start, switch to `contract_def` branch and run the tests:
 
 You should see 4 tests passing - Consumer 1 test, Consumer 2 test, and 2 provider tests ("simple pet get" and verifying all consumers contract).
 
-This simulates a complete run of all the tests, but not that in a real setup, these tests would probably run separately:
+This simulates a complete run of all the tests, but note that in a real setup, these tests would probably run separately:
 - The consumers' tests would run in the consumers' repos.
 - The producer's full test ("simple pet get") would run in the producer repo
 - The contracts verification would run from the shared contract repo.
@@ -77,7 +77,7 @@ The failure happens only for the contract of consumer 1.
 In this case, the contract for consumer 2 wasn't broken.  
 Note that also in this case, the provider has made the changes in his own tests so the change seems ok from his point of view.
 
-The provider can now approach the team for the 1st consumer and discuss the changes with them, before making any deployments.
+The provider can now approach the team of the 1st consumer and discuss the changes with them, before making any deployments.
 After making necessary changes (either in the provider or the consumer, or both), the teams can proceed with deployments.
 The important thing is that breaking change was identified early and with the consumer that actually cares about it.
 
