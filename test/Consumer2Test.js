@@ -3,6 +3,9 @@ import { Consumer2Contract } from './Consumer2Contract.js';
 import { runContract } from './ContractUtil.js';
 
 const BASE_URL = "http://localhost:3000"
+const PET_PATH_REGEX = /\/pet\/(\d+)/
+
+const getPetIDFromURL = (url) => url.match(PET_PATH_REGEX)[1];
 
 const mockData = {
     10 : {
@@ -29,9 +32,9 @@ describe('PetStore Service - Consumer 2', () => {
     before(() => {
         // Mocking the HTTP server response
         nock(BASE_URL)
-            .get(/\/pet\/(\d+)/)
+            .get(PET_PATH_REGEX)
             .reply(function (uri, _) {
-                const petID = uri.match(/\/pet\/(\d+)/)[1]; // Extracting pet ID from URL
+                const petID = getPetIDFromURL(uri);
                 return [200, mockData[petID]];
             });
         
